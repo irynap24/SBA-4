@@ -38,3 +38,9 @@ select {
   margin-bottom: 16px;
   font-size: 16px;
 }
+button {
+  background-color: bisque;
+  color: rgb(52, 43, 39);
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
