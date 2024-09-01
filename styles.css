@@ -22,7 +22,7 @@ body {
 h1 {
   font-size: 28px;
   font-weight: bold;
-  color: #40426b;
+  color: #344e41;
   margin-bottom: 20px;
 }
 
@@ -61,7 +61,11 @@ input[type="number"] {
 }
 #female:active,
 #female:focus {
-  background-color: aqua;
+  background-color: #dad7cd63;
+}
+#male:active,
+#male:focus {
+  background-color: #dad7cd63;
 }
 .btn-group button {
   border: none;
@@ -98,7 +102,7 @@ input[type="number"] {
 }
 
 .calculate-btn {
-  background-color: #26a69a;
+  background-color: #588157;
   color: #ffffff;
   border: none;
   border-radius: 8px;
