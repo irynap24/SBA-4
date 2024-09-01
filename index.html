@@ -14,9 +14,9 @@
 
         <div class="input-group">
             <label>Sex</label>
-            <div class="btn-group">
-                <button id="male" onclick="selectGender('male')">👨</button>
-                <button id="female" onclick="selectGender('female')">👩</button>
+            <div class="btn-group sex-selection">
+                <button id="male" onclick="selectGender('male')">Male</button>
+                <button id="female" onclick="selectGender('female')">Female</button>
             </div>
         </div>
 
@@ -25,13 +25,7 @@
             <input type="number" id="age" placeholder="Age">
         </div>
 
-        <div class="input-group">
-            <label>Measurements</label>
-            <div class="btn-group">
-                <button id="metric" onclick="selectMeasurement('metric')">Metric</button>
-                <button id="imperial" onclick="selectMeasurement('imperial')">Imperial</button>
-            </div>
-        </div>
+
 
         <div class="input-group">
             <label for="height">Height (in)</label>
@@ -46,11 +40,18 @@
         <div class="input-group">
             <label>Activity Level</label>
             <div class="btn-group activity-level">
-                <button id="sedentary" onclick="selectActivity('sedentary')">🪑</button>
-                <button id="light" onclick="selectActivity('light')">🏃‍♂️</button>
-                <button id="moderate" onclick="selectActivity('moderate')">🏋️‍♀️</button>
-                <button id="active" onclick="selectActivity('active')">🏊‍♀️</button>
-                <button id="very-active" onclick="selectActivity('very-active')">🚴‍♀️</button>
+                <button id="sedentary" onclick="selectActivity('sedentary')"><img src="./sitting-table-svgrepo-com.svg"
+                        alt=""></button>
+                <button id="light" onclick="selectActivity('light')"><img src="./dumbbell-svgrepo-com.svg" height="30px"
+                        alt=""></button>
+                <button id="moderate" onclick="selectActivity('moderate')"><img src="./dumbbells-svgrepo-com.svg"
+                        alt=""></button>
+                <button id="active" onclick="selectActivity('active')"><img
+                        src="./healthy-exercise-strength-workout-muscular-lifting-bodybuilding-svgrepo-com.svg"
+                        alt=""></button>
+                <button id="very-active" onclick="selectActivity('very-active')"><img
+                        src="./exercise-application-calculate-smartphone-calories-workout-health-svgrepo-com.svg"
+                        alt=""></button>
             </div>
         </div>
 
