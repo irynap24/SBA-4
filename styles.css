@@ -17,3 +17,9 @@ body {
   max-width: 500px;
   margin: 20px;
 }
+h1 {
+  font-size: 20px;
+  color: blueviolet;
+  margin-bottom: 20px;
+  text-align: center;
+}
