@@ -1,66 +1,71 @@
-document.addEventListener("DOMContentLoaded", () => {
-    // Add event listeners for gender and activity buttons to toggle selected states
-    document.querySelectorAll(".btn-group button").forEach(button => {
-        button.addEventListener("click", () => {
-            // Remove selected class from all buttons in the group
-            button.parentNode.querySelectorAll("button").forEach(btn => btn.classList.remove("selected"));
-            // Add selected class to the clicked button
-            button.classList.add("selected");
-        });
-    });
 
-    document.querySelectorAll(".activity-level button").forEach(button => {
-        button.addEventListener("click", () => {
-            // Remove selected class from all buttons in the group
-            button.parentNode.querySelectorAll("button").forEach(btn => btn.classList.remove("selected"));
-            // Add selected class to the clicked button
-            button.classList.add("selected");
-        });
-    });
-});
 
+
+
+let selectedGender = '';
+let selectedActivity = '';
+
+const apiKey = 'bfc2d72f6emshae14cc91f69a38ep164c54jsn0cb125e82b3e';
+
+// Function to handle gender selection
+function selectGender(gender) {
+    selectedGender = gender;
+    document.getElementById('male').classList.remove('selected');
+    document.getElementById('female').classList.remove('selected');
+    document.getElementById(gender).classList.add('selected');
+}
+
+// Function to handle activity level selection
+function selectActivity(activity) {
+    selectedActivity = activity;
+    document.getElementById('sedentary').classList.remove('selected');
+    document.getElementById('light').classList.remove('selected');
+    document.getElementById('moderate').classList.remove('selected');
+    document.getElementById('active').classList.remove('selected');
+    document.getElementById('very-active').classList.remove('selected');
+    document.getElementById(activity).classList.add('selected');
+}
+
+// Function to calculate macros
 function calculateMacros() {
-    const weight = document.getElementById("weight").value;
-    const height = document.getElementById("height").value;
-    const age = document.getElementById("age").value;
+    const age = document.getElementById('age').value;
+    const height = document.getElementById('height').value;
+    const weight = document.getElementById('weight').value;
 
-    // Capture selected gender and activity level
-    const gender = document.querySelector(".btn-group button.selected")?.getAttribute("data-gender");
-    const activity = document.querySelector(".activity-level button.selected")?.getAttribute("data-activity");
-
-    // Check if all required inputs and selections are filled
-    if (!weight || !height || !age || !gender || !activity) {
+    // Ensure all fields are filled
+    if (!age || !selectedGender || !height || !weight || !selectedActivity) {
         alert("Please fill in all fields and select all options.");
         return;
     }
 
-    // Prepare the data to be sent to the API
-    const data = {
-        weight: weight, // weight in lbs
-        height: height, // height in inches
-        age: age,
-        gender: gender, // "male" or "female"
-        activityLevel: activity // "sedentary", "light", "moderate", "active", "very-active"
+    // Build request payload
+    const payload = {
+        age: parseInt(age),
+        gender: selectedGender,
+        height: parseFloat(height),
+        weight: parseFloat(weight),
+        activity_level: selectedActivity
     };
 
-    // Make the API request to calculate macros
-    axios.post('https://your-api-endpoint-for-macros.com/calculateMacros', data)
+    // Axios POST request to the RapidAPI endpoint
+    axios.post('https://macros1.p.rapidapi.com/calculate_macros/', payload, {
+        headers: {
+            'X-RapidAPI-Key': apiKey,
+            'X-RapidAPI-Host': 'macros1.p.rapidapi.com',
+            'Content-Type': 'application/json',
+
+        }
+    })
         .then(response => {
-            const result = response.data;
-            displayResult(result);
+            const { calories, protein, carbs, fats } = response.data;
+            document.getElementById('calories').textContent = calories;
+            document.getElementById('protein').textContent = protein;
+            document.getElementById('carbs').textContent = carbs;
+            document.getElementById('fats').textContent = fats;
+            document.getElementById('result').style.display = 'block';
         })
         .catch(error => {
-            console.error("There was an error calculating the macros:", error);
+            console.error('Error calculating macros:', error);
+            alert('An error occurred. Please try again.');
         });
-}
-
-function displayResult(result) {
-    const resultContainer = document.getElementById("result");
-    resultContainer.innerHTML = `
-        <h2>Your Daily Macros</h2>
-        <p>Calories: <span>${result.calories}</span></p>
-        <p>Protein: <span>${result.protein}g</span></p>
-        <p>Fat: <span>${result.fat}g</span></p>
-        <p>Carbs: <span>${result.carbs}g</span></p>
-    `;
 }
